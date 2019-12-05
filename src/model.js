@@ -9,6 +9,11 @@ const schema = [
 const model = (action, object, schema) => {
   const DB = [];
 
+  // Validate inputs
+  if (typeof action != 'string' || typeof object != 'object' || typeof schema != 'object') {
+    return 'Invalid input';
+  }
+
   // Add action
   const add = (object) => {
     const valid = {};
@@ -29,7 +34,7 @@ const model = (action, object, schema) => {
       element => !schema.includes(element)
     );
     for (let error of invalid) {
-      errors.push(`The parameter ${error} was not added because it was no allowed by the schema`)
+      errors.push(`The parameter ${error} was not added because it was not allowed by the schema`)
     }
     return errors;
   }
